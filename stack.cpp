@@ -97,7 +97,7 @@ void Numbers::Set(int pos, int number) { // 2 +
     }
 }
 
-void Numbers::Sort(int N) { // 1 + 
+void Numbers::Sort() { // 1 + 
     MyLinkedListStack tempStack; // 1
     
     // Найти минимальное и максимальное значение в стеке

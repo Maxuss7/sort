@@ -25,7 +25,7 @@ int main()
     cout << "Stack after Set operation: ";
     myStack.Print();
 
-    myStack.Sort(myStack.Length());
+    myStack.Sort();
 
     cout << "Sorted stack: ";
     myStack.Print();

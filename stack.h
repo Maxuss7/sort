@@ -29,7 +29,7 @@ class Numbers : public MyLinkedListStack
 public:
     int Get(int pos);
     void Set(int pos, int number);
-    void Sort(int n);
+    void Sort();
 };
 
 #endif 
