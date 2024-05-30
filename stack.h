@@ -1,5 +1,6 @@
 #ifndef STACK_H
 #define STACK_H
+
 #include <vector>
 class MyLinkedListStack {
 private:
@@ -20,8 +21,6 @@ public:
     int Del();
     int Value();
     void Print();
-
-    std::vector<int> ToArray();
 };
 
 
