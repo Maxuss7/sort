@@ -141,8 +141,7 @@ void Numbers::Sort(int n) {             N_op++;
     }
 
     // Создаем временный стек для счетчиков
-    // Но придется сделать ноду публичной
-    MyLinkedListStack countStack;                       N_op++;
+    Numbers countStack;                       N_op++;
 
     // Заполняем временный стек счетчиков
                                                         N_op += 2;
