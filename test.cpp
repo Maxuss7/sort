@@ -9,7 +9,7 @@ using namespace std::chrono;
 
 void FillStackWithRandomNumbers(Numbers& stack, int n) {
     for (int i = 0; i < n; ++i) {
-        int randomNumber = (rand() % 20001) - 10000; 
+        int randomNumber = (rand() % 20001) - 10000;
         stack.Add(randomNumber);
     }
 }
@@ -19,7 +19,7 @@ int main()
     setlocale( LC_ALL,"Russian" );
     srand(time(0)); 
 
-    for (int i = 0, N = 1000; N <= 10000; i++, N += 1000) {
+    for (int i = 0, N = 100; N <= 1000; i++, N += 100) {
         Numbers myStack;
         FillStackWithRandomNumbers(myStack, N);
 
