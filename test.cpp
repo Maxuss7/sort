@@ -1,35 +1,40 @@
 #include "stack.h"
 #include <iostream>
+#include <chrono>
+#include <cstdlib>
+#include <ctime> 
 
 using namespace std;
+using namespace std::chrono;
+
+void FillStackWithRandomNumbers(Numbers& stack, int n) {
+    for (int i = 0; i < n; ++i) {
+        int randomNumber = (rand() % 20001) - 10000; 
+        stack.Add(randomNumber);
+    }
+}
 
 int main()
 {   
-    #ifdef TEST
-    Numbers myStack;
-    myStack.Add(10);
-    myStack.Add(5);
-    myStack.Add(7);
-    myStack.Add(3);
+    setlocale( LC_ALL,"Russian" );
+    srand(time(0)); 
 
-    cout << "Original stack: ";
-    myStack.Print();
+    for (int i = 0, N = 1000; N <= 10000; i++, N += 1000) {
+        Numbers myStack;
+        FillStackWithRandomNumbers(myStack, N);
 
-    cout << "Get element at position 2: " << myStack.Get(2) << endl;
+        auto start = high_resolution_clock::now();
 
-    cout << "Stack after Get operation: ";
-    myStack.Print();
+        myStack.Sort(N);
 
-    myStack.Set(1, 20);
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
 
-    cout << "Stack after Set operation: ";
-    myStack.Print();
+        cout << "Номер сортировки: " << i + 1 << endl;
+        cout << "Количество отсортированных элементов: " << N << endl;
+        cout << "Время сортировки (ms): " << duration.count() << endl;
+        cout << "Количество операций (N_op): " << myStack.N_op << endl << endl;
+    }
 
-    myStack.Sort();
-
-    cout << "Sorted stack: ";
-    myStack.Print();
-
-    #endif
-
+    return 0;
 }
