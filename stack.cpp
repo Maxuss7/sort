@@ -3,170 +3,179 @@
 #include <iostream>
 using namespace std;
 
-MyLinkedListStack::MyLinkedListStack() { // 1
-    top = nullptr; // 1
+MyLinkedListStack::MyLinkedListStack() {
+    top = nullptr;
+    unsigned long long int N_op;
 }
 
-MyLinkedListStack::~MyLinkedListStack() { // 5 * N
-    while (top != nullptr) {            // 2 
-        Node* temp = top;               // 1
-        top = top->next;                // 1
-        delete temp;                    // 1
+MyLinkedListStack::~MyLinkedListStack() {
+    while (top != nullptr) {            
+        Node* temp = top; N_op++;              
+        top = top->next;  N_op++;              
+        delete temp;      N_op++;              
+        
     }
 }
 
-void MyLinkedListStack::Add(int x) {    // 5
-    Node* newNode = new Node;           // 1
-    newNode->data = x;                  // 1
-    newNode->next = top;                // 1
-    top = newNode;                      // 1
+void MyLinkedListStack::Add(int x) { N_op++;   
+    Node* newNode = new Node;   N_op++; 
+    newNode->data = x;          N_op++;        
+    newNode->next = top;        N_op++;        
+    top = newNode;              N_op++;        
 }
 
-bool MyLinkedListStack::IsEmpty() {     // 2
-    return top == nullptr;              // 2
+bool MyLinkedListStack::IsEmpty() {
+    N_op += 2;
+    return top == nullptr;              
 }
 
-int MyLinkedListStack::Length() {       // 5 + 2 * N
-    int count = 0;                      // 1
-    Node* current = top;                // 1
-    while (current != nullptr) {        // 2 + 2 * N
-        count++;                        
-        current = current->next;        
+int MyLinkedListStack::Length() {       
+    int count = 0;                      N_op++;
+    Node* current = top;                N_op++;
+                                        N_op += 2;
+    while (current != nullptr) {        N_op += 2;
+        count++;                        N_op++;
+        current = current->next;        N_op++;
     }
-    return count;                       // 1
+    N_op++;
+    return count;                       
 }
 
-int MyLinkedListStack::Del() {          // 11
-    int val = 0;                        // 1
-    if (!IsEmpty()) {                   // 4
-        val = top->data;                // 1
-        Node* temp = top;               // 1
-        top = top->next;                // 1
-        delete temp;                    // 1
+int MyLinkedListStack::Del() {          
+    int val = 0;                        N_op++;
+                                        N_op += 4;
+    if (!IsEmpty()) {                   
+        val = top->data;                N_op++;
+        Node* temp = top;               N_op++;
+        top = top->next;                N_op++;
+        delete temp;                    N_op++;
     } else {
-        cout << "Стек пуст" << endl;    // 1
+        cout << "Стек пуст" << endl;    N_op++;
     }
-    return val; // 1
+
+    N_op++;
+    return val;
 }
 
-int MyLinkedListStack::Value() {        // 7
-    if (!IsEmpty()) {                   // 4
-        return top->data;               // 1
+int MyLinkedListStack::Value() {        
+        N_op += 4;    
+    if (!IsEmpty()) {                   
+        N_op++;
+        return top->data;               
     } else {
-        cout << "Стек пуст" << endl;    // 1
-        return 0;                       // 1
+        N_op++;
+        cout << "Стек пуст" << endl;
+        N_op++;
+        return 0;                       
     }
 }
 
-void MyLinkedListStack::Print() {       // 9 + 2 * N
-    if (!IsEmpty()) { // 4
-        Node* current = top; // 1
-        while (current != nullptr) {    // 2 + 2 * N
-            cout << current->data << " "; 
-            current = current->next;    
+void MyLinkedListStack::Print() {       
+                                        N_op += 4;
+    if (!IsEmpty()) { 
+        Node* current = top;            N_op++;
+                                        N_op += 2;    
+        while (current != nullptr) {    N_op += 2;
+            cout << current->data << " "; N_op++;
+            current = current->next;      N_op++;
         }
-        cout << endl;                   // 1
+        cout << endl;                     N_op++;
     } else {
-        cout << "Стек пуст" << endl;    // 1
+        cout << "Стек пуст" << endl;      N_op++;
     }
 }
 
-int Numbers::Get(int pos) {             // 1 +
-    MyLinkedListStack tempStack;        // 1
-    int value = -1;                     // 1
-    for (int i = 0; i <= pos; ++i) { // 6 
-        value = Del();                  // 11
-        tempStack.Add(value);           // 5
-                                        // 1
+int Numbers::Get(int pos) {             N_op++;
+    MyLinkedListStack tempStack;        N_op++;
+    int value = -1;                     N_op++;
+                                        N_op += 2;
+    for (int i = 0; i <= pos; ++i) {    N_op += 3;
+        value = Del();                  
+        tempStack.Add(value);           
     }
-    while (!tempStack.IsEmpty()) {      // 4
-        Add(tempStack.Del());           // 16
+                                        N_op += 2;
+    while (!tempStack.IsEmpty()) {      N_op += 2;
+        Add(tempStack.Del());           
     }
-    return value;                       // 1
+                                        N_op++;
+    return value;                       
 }
 
-void Numbers::Set(int pos, int number) { // 2 +
-    MyLinkedListStack tempStack;         // 1
-    for (int i = 0; i < pos; ++i) { // 6 + 
-        tempStack.Add(Del());           // 16
+void Numbers::Set(int pos, int number) { N_op += 2;
+    MyLinkedListStack tempStack;         N_op++;
+                                         N_op += 2;
+    for (int i = 0; i < pos; ++i) {      N_op += 3;
+        tempStack.Add(Del());           
     }
-    if (!IsEmpty()) {                   // 4
-        Del();                          // 11
-        Add(number);                    // 5
+
+    N_op += 2;
+    if (!IsEmpty()) {                   
+        Del();                          
+        Add(number);                    
     }
-    while (!tempStack.IsEmpty()) {      // 4 +
-        Add(tempStack.Del());           // 16
+    N_op += 2;
+    while (!tempStack.IsEmpty()) {      N_op += 2;
+        Add(tempStack.Del());           
     }
 }
 
-void Numbers::Sort(int n) {             // 1 +
-    /*
-    В оригинальной "сортировке подсчетом" ищутся мин и макс
-    числа, и создается массив счетчиков, длина которого равна разнице мин и макс
-    значений массива.
-    Однако, из-за этой неопределенности мы НЕ МОЖЕМ НАЙТИ ПОЛИНОМ ИСПОЛЬЗУЯ ТОЛЬКО N.
-    Придется самому выставить минимальное и максимальное значение, что очень плохо
-    повлияет на логику программы. Ведь реальные макс и мин значения могут уйти за границы.
-    Также, мне придется сделать очень малький мин и большой макс, что повлияет и на скорость.
-    Массив счетчиков будет длинным и в основном заполнен нулями. Но другого пути нет, 
-    думал над этой проблемой часами и уже хочу разбить экран.
-
-   
-    int minVal = Value(); // 7
-    int maxVal = minVal; // 1
-    while (!IsEmpty()) { // 4 + 
-        int value = Del(); // 12
-        if (value < minVal) minVal = value; // 3
-        if (value > maxVal) maxVal = value; // 3
-        tempStack.Add(value); // 5
-    }
-    и тд
-    */
-    MyLinkedListStack tempStack;        // 1
+void Numbers::Sort(int n) {             N_op++;
+    MyLinkedListStack tempStack;        N_op++;
     
     // Константы для минимального и максимального значений
-    const int MIN_VAL = -1000;          // 1
-    const int MAX_VAL = 1000;           // 1
+    const int MIN_VAL = -10000;         N_op++;
+    const int MAX_VAL = 10000;          N_op++;
 
     // Заполняем временный стек данными до сортировки
-    for (int i = 0; i < n; ++i) {                // 3 +               
-        int value = Del();              // 12
-        if (value < MIN_VAL || value > MAX_VAL) { // 4
-            cerr << "Out of range value found." << endl; // 1
-            return;                                      // 1
+                                        N_op++;
+    for (int i = 0; i < n; ++i) {       N_op += 3;            
+        int value = Del();              N_op++;
+
+                                        N_op += 4;
+        if (value < MIN_VAL || value > MAX_VAL) {
+            cerr << "Out of range value found." << endl; N_op++;
+                                                         N_op++;   
+            return;                                      
         }
-        tempStack.Add(value);                            // 15
+        tempStack.Add(value);                            
     }
 
     // Создаем временный стек для счетчиков
     // Но придется сделать ноду публичной
-    MyLinkedListStack countStack;                       // 1
+    MyLinkedListStack countStack;                       N_op++;
 
     // Заполняем временный стек счетчиков
-    for (int i = MIN_VAL; i <= MAX_VAL; ++i) {
-        int count = 0;                                  // 1
+                                                        N_op += 2;
+    for (int i = MIN_VAL; i <= MAX_VAL; ++i) {          N_op += 3;
+        int count = 0;                                  N_op++;
         // Считаем количество элементов с данным значением
-        MyLinkedListStack::Node* current = tempStack.top; // 1
-        while (current != nullptr) {                      // 2
-            if (current->data == i)                       // 2
-                count++;                                  // 1
-            current = current->next;                      // 1
+        MyLinkedListStack::Node* current = tempStack.top; N_op++;
+                                                          N_op += 2;  
+        while (current != nullptr) {                      N_op += 2;
+                                                          N_op++;  
+            if (current->data == i)                
+                count++;                                  N_op++;
+            current = current->next;                      N_op++;
         }
 
-        countStack.Add(count);                            // 5
+        countStack.Add(count);                            
     }
 
     // Добавляем элементы обратно в отсортированном порядке (с конца)
-    for (int i = MAX_VAL; i >= MIN_VAL; --i) {
-        MyLinkedListStack::Node* current = tempStack.top; 
-        for (int j = 0; j < n; ++j) {
-            if (current->data == i) {
+    N_op += 2;
+    for (int i = MAX_VAL; i >= MIN_VAL; --i) {              N_op += 3;
+        MyLinkedListStack::Node* current = tempStack.top;   N_op++;
+                                                            N_op += 2;
+        for (int j = 0; j < n; ++j) {                       N_op += 3;
+                                                            N_op += 2;
+            if (current->data == i) {                       
                 Add(i);
-                countStack.top->data--;
+                countStack.top->data--;                     N_op++;
+                                                            N_op +=2;
                 if (countStack.top->data == 0)
                     countStack.Del();
             }
-            current = current->next;
+            current = current->next;                        N_op++;
         }
     }
 }
