@@ -21,6 +21,7 @@ int main()
 
     for (int i = 0, N = 100; N <= 1000; i++, N += 100) {
         Numbers myStack;
+        myStack.N_op = 0;
         FillStackWithRandomNumbers(myStack, N);
 
         auto start = high_resolution_clock::now();
